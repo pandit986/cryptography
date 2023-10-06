@@ -1,0 +1,22 @@
+<!-- {% load static %} -->
+
+<div class="form-group">
+    <label for="password">Password:</label>
+    <div class="pwd_images">
+        {% for row in p_images %}
+        <div style="display: flex">
+        {% for col in row %}
+            <div style="margin: 2px; border:1px solid blue;border-radius: 4px">
+            <!-- {{ forloop.parentloop.counter0  }}-{{ forloop.counter0  }} -->
+                <img src='{% static 'images/' %}{{ col }}.png' alt=" img" style="
+                height: 50px;
+                width: 50px;" id="{{col}}" onclick="onSelect({{col}})">
+            </div>
+        {% endfor %}
+        </div>
+
+    <div style="padding-bottom: 5px;"></div>
+    {% endfor %}
+    </div>
+
+</div>

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block style %}
+    .message-group{
+    display:flex;
+    margin:auto;
+    width:50%;
+    justify-content:space-between;
+    align-items:center;
+    }
+    .message-group a {
+        background-color:blue;
+    padding:10px;
+    border-radius:10px;
+    color:white;
+    }
+{% endblock %}
+
+{% block content %}
+    <!-- if user is not logged in then redirect him/her to error page -->
+{% if not request.user.is_authenticated %}
+    <script>
+    window.location.replace({% url 'error_page' %});
+    </script>
+{% endif %}
+
+    <!-- if user is logged then give him access to dashboard functions -->
+    <h1>Welcome, {{ request.user.username }}</h1>
+    <main>
+
+    <div class="message-group" >
+    <a href={% url 'send_msg' %}>Send Message</a>
+    <a href={% url 'receive_msg' %}>Receive Messages</a>
+    </div>
+
+    </main>
+
+
+{% endblock %}

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+
+
+    {% load static %}
+   <style>
+
+        body {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 200;
+            background: #fff;
+            font-size: 1.5em;
+        }
+        nav{
+            background-color: white;
+            box-shadow: 0 2px 6px 0 rgb(32 33 37 / 30%);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            max-height: 5vh;
+            margin: -5px;
+            margin-left: -10px;
+            padding: 10px;
+        }
+        nav a{
+            flex: 2;
+        }
+        .nav_link{
+            flex:3;
+            display: flex;
+
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+
+        }
+        .nav_link a{
+                padding: 2vh;
+                border: 0px solid;
+            border-radius: 5px;
+            background-color: #fdfdfd;
+    display: flex;
+    align-items: center;
+    /* align-content: flex-start; */
+    flex-wrap: nowrap;
+    flex-direction: row;
+    /* margin: 5px; */
+    margin: 0px 4vw;
+    justify-content: center;
+
+
+        }
+        .nav_link a:hover{
+        color: white;
+    background: blue;
+}
+
+        a{
+            text-decoration: none;
+        }
+        .main-content{
+    margin: auto;
+    width: min-content;
+    padding: 10px;
+
+    }
+        form{
+    padding:50px;
+    }
+        .form-group{
+            position: relative;
+            margin-top: 10px;
+        }
+
+    .form-group input{
+    width: 300px;
+    height: 40px;
+    font-size: 1rem;
+    font-family: 'Open Sans','Roboto', 'sans-serif';
+    padding: 0px 10px;
+    border-color: blue;
+    outline: none;
+    border-radius: 5px;
+    border-width: 2px;
+    box-sizing: content-box;
+}
+    .form-group label{
+    font-family: 'Roboto', 'sans-serif';
+    position: relative;
+    top: -56px;
+    left: 15px;
+    font-weight: 500;
+        background-color: white;
+}
+    input:focus{
+    border: 3px solid green;
+
+}
+
+        fieldset{
+            border-radius: 15px;
+    box-shadow: 0px 0px 9px 0px #bbbaba;
+    border: 2px solid blue;
+        }
+
+        fieldset legend{
+            margin-top: 10px;
+            margin-left: 10px;
+            background-color: #2642e9;
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            letter-spacing: 1px;
+        }
+
+        .pwd_images{
+            margin-top: -30px;
+            border-radius: 10px;
+            padding: 10px;
+            width: fit-content;
+            background-color: white;
+            box-shadow: 1px 0px 10px 0px rgb(2 8 36 / 41%);
+        }
+
+        button{
+                padding: 10px 20px;
+    font-size: 1.5rem;
+    background: #ffbc00;
+    border-radius: 10px;
+    border: 1px solid;
+    font-weight: 500;
+        }
+
+
+    </style>
+
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+    <style>
+        {% block style %}
+
+        {% endblock %}
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a class="" href="{% url 'home' %}">Project</a>
+
+        <div class="nav_link">
+
+            {% if request.user.is_authenticated %}
+                <a href={% url 'dashboard' %}>Dashboard</a>
+            <a  href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a  href="{% url 'home' %}">Home</a>
+            <a  href="{% url 'register' %}">Register</a>
+            <a  href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+
+</body>
+
+</html>

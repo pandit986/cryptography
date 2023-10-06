@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block style %}
+    select{
+        width: 306px;
+    /* height: 40px; */
+    font-size: 1.5rem;
+    border-radius: 5px;
+    border: 4px solid blue;
+    padding: 15px;}
+
+    lable{
+    position:absolute;
+    margin-top:15px;
+    background:white;
+    margin-left:5px;
+    }
+    table,tr,td{
+    border:2px solid black;
+    border-collapse:collapse;
+    }
+{% endblock %}
+{% block content %}
+    {% if not request.user.is_authenticated %}
+    <script>
+    window.location.replace({% url 'error_page' %})
+    </script>
+    {% endif %}
+
+    <!--This form is  used to receive message-->
+    <main>
+    <form method="post" action="" id="receive-form">
+        {% csrf_token %}
+        <lable> Choose No of Messages</lable><br>
+        <select name="no_of_msg">
+            {% for option in options %}
+            <option>{{ option }}</option>
+            {% endfor%}
+        </select>
+        <br>
+    <br>
+    <button type="submit">Get the Messages</button>
+    </form>
+    </main>
+
+    <div>
+    <table>
+    <tr>
+        <th>Sender</th>
+        <th>message</th>
+    </tr>
+        {% for sender,message in msg %}
+            <tr>
+            <td>{{ sender }}</td>
+            <td>{{ message }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock %}

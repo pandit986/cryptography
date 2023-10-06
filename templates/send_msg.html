@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block style %}
+select{
+        width: 306px;
+    /* height: 40px; */
+    font-size: 1.5rem;
+    border-radius: 5px;
+    border: 4px solid blue;
+    padding: 15px;}
+
+    textarea{    height: 132px;
+    width: 300px;
+    padding:10px;
+    font-size:1.5rem;
+    border: 4px solid blue;
+    border-radius: 5px;}
+
+    label{
+    background: white;
+    position: absolute;
+    margin: 13px 10px;}
+{% endblock %}
+{% block content %}
+    <!-- if user is not logged in then redirect him/her to error page -->
+{% if not request.user.is_authenticated %}
+    <script>
+    window.location.replace({% url 'error_page' %});
+    </script>
+{% endif %}
+
+    <!-- this form is used to send msg to users-->
+   <main>
+   <form method="post" action="" id="send-msg-form">
+       {% csrf_token %}
+    <label>Please Select the User</label><br>
+       <select name="receiver" id="user_name">
+            <option>None</option>
+           {% for user in users %}
+           <option>{{ user }}</option>
+           {% endfor %}
+       </select>
+       <br>
+   <br>
+        <label>Enter Your Message</label><br>
+       <textarea id="msg" name="msg" maxlength="255" value="Enter Your Text">
+       </textarea>
+   <br>
+   <br>
+    <button type="submit">Send</button>
+
+   </form>
+
+    </main>
+
+
+{% endblock %}
